@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP22 Patch 3" creationDateTime="2026-11-02T23:05:42.3674008" />
+  <contentHeader name="Ejercicio_Tanque.project" modificationDateTime="2026-10-01T10:32:36.9707997">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous />
+  </types>
+  <instances>
+    <configurations>
+      <configuration name="Device">
+        <resource name="Application">
+          <task name="MainTask" interval="PT0.02S" priority="1">
+            <pouInstance name="PLC_PRG" typeName="">
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </documentation>
+            </pouInstance>
+            <addData>
+              <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+                <TaskSettings KindOfTask="Cyclic" Interval="t#20ms" IntervalUnit="ms" WithinSPSTimeSlicing="true">
+                  <Watchdog Enabled="false" TimeUnit="ms" Sensitivity="1" />
+                </TaskSettings>
+              </data>
+              <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                <ObjectId>f0caeff9-4db8-480e-b9fd-390eea1b5a71</ObjectId>
+              </data>
+            </addData>
+          </task>
+          <task name="VISU_TASK" interval="PT0.1S" priority="31">
+            <pouInstance name="VisuElems.Visu_Prg" typeName="">
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+              </documentation>
+            </pouInstance>
+            <addData>
+              <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+                <TaskSettings KindOfTask="Cyclic" Interval="100" IntervalUnit="ms" WithinSPSTimeSlicing="true">
+                  <Watchdog Enabled="false" TimeUnit="ms" />
+                </TaskSettings>
+              </data>
+              <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                <ObjectId>6cb3cb3c-f91a-418b-ac78-18b4c61590c6</ObjectId>
+              </data>
+            </addData>
+          </task>
+          <globalVars name="GVL">
+            <variable name="B1">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">Sensor 1 (Vacío)</xhtml>
+              </documentation>
+            </variable>
+            <variable name="B2">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">Sensor 2 (Normal)</xhtml>
+              </documentation>
+            </variable>
+            <variable name="B3">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">Sensor 3 (OverFlow)</xhtml>
+              </documentation>
+            </variable>
+            <variable name="Alto">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">H3 Nivel muy alto</xhtml>
+              </documentation>
+            </variable>
+            <variable name="Correcto">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">H1 Nivel Correcto</xhtml>
+              </documentation>
+            </variable>
+            <variable name="Bajo">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">H2 Nivel muy bajo</xhtml>
+              </documentation>
+            </variable>
+            <variable name="Vacio">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">H4 Nivel Vacío</xhtml>
+              </documentation>
+            </variable>
+            <variable name="Error">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">H5 Error</xhtml>
+              </documentation>
+            </variable>
+            <addData>
+              <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                <ObjectId>ed2354c0-6ba0-4924-8e24-b26b19e1f541</ObjectId>
+              </data>
+            </addData>
+          </globalVars>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="PLC_PRG" pouType="program">
+                <interface />
+                <body>
+                  <LD>
+                    <!--ObjectVersion: LD1-->
+                    <leftPowerRail localId="0">
+                      <position x="0" y="0" />
+                      <connectionPointOut formalParameter="none" />
+                    </leftPowerRail>
+                    <comment localId="1" height="0" width="0">
+                      <position x="0" y="0" />
+                      <content>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">Nivel de llenado muy alto (overflow)</xhtml>
+                      </content>
+                    </comment>
+                    <vendorElement localId="2">
+                      <position x="0" y="0" />
+                      <alternativeText>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                      </alternativeText>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                          <ElementType xmlns="">networktitle</ElementType>
+                        </data>
+                      </addData>
+                    </vendorElement>
+                    <contact localId="3" negated="false" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="0" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B1</variable>
+                    </contact>
+                    <contact localId="4" negated="false" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="3" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B2</variable>
+                    </contact>
+                    <contact localId="5" negated="false" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="4" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B3</variable>
+                    </contact>
+                    <coil localId="6" negated="false" storage="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="5" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.Alto</variable>
+                    </coil>
+                    <comment localId="7" height="0" width="0">
+                      <position x="0" y="0" />
+                      <content>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">Nivel de llenado correcto</xhtml>
+                      </content>
+                    </comment>
+                    <vendorElement localId="8">
+                      <position x="0" y="0" />
+                      <alternativeText>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                      </alternativeText>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                          <ElementType xmlns="">networktitle</ElementType>
+                        </data>
+                      </addData>
+                    </vendorElement>
+                    <contact localId="9" negated="false" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="0" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B1</variable>
+                    </contact>
+                    <contact localId="10" negated="false" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="9" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B2</variable>
+                    </contact>
+                    <contact localId="11" negated="true" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="10" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B3</variable>
+                    </contact>
+                    <coil localId="12" negated="false" storage="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="11" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.Correcto</variable>
+                    </coil>
+                    <comment localId="13" height="0" width="0">
+                      <position x="0" y="0" />
+                      <content>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">Nivel de llenado muy bajo</xhtml>
+                      </content>
+                    </comment>
+                    <vendorElement localId="14">
+                      <position x="0" y="0" />
+                      <alternativeText>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                      </alternativeText>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                          <ElementType xmlns="">networktitle</ElementType>
+                        </data>
+                      </addData>
+                    </vendorElement>
+                    <contact localId="15" negated="false" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="0" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B1</variable>
+                    </contact>
+                    <contact localId="16" negated="true" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="15" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B2</variable>
+                    </contact>
+                    <contact localId="17" negated="true" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="16" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B3</variable>
+                    </contact>
+                    <coil localId="18" negated="false" storage="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="17" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.Bajo</variable>
+                    </coil>
+                    <comment localId="19" height="0" width="0">
+                      <position x="0" y="0" />
+                      <content>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">Nivel del tanque vacío</xhtml>
+                      </content>
+                    </comment>
+                    <vendorElement localId="20">
+                      <position x="0" y="0" />
+                      <alternativeText>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                      </alternativeText>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                          <ElementType xmlns="">networktitle</ElementType>
+                        </data>
+                      </addData>
+                    </vendorElement>
+                    <contact localId="21" negated="true" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="0" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B1</variable>
+                    </contact>
+                    <contact localId="22" negated="true" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="21" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B2</variable>
+                    </contact>
+                    <contact localId="23" negated="true" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="22" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B3</variable>
+                    </contact>
+                    <coil localId="24" negated="false" storage="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="23" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.Vacio</variable>
+                    </coil>
+                    <comment localId="25" height="0" width="0">
+                      <position x="0" y="0" />
+                      <content>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml">Casos de Error</xhtml>
+                      </content>
+                    </comment>
+                    <vendorElement localId="26">
+                      <position x="0" y="0" />
+                      <alternativeText>
+                        <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                      </alternativeText>
+                      <addData>
+                        <data name="http://www.3s-software.com/plcopenxml/fbdelementtype" handleUnknown="implementation">
+                          <ElementType xmlns="">networktitle</ElementType>
+                        </data>
+                      </addData>
+                    </vendorElement>
+                    <contact localId="27" negated="true" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="0" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B2</variable>
+                    </contact>
+                    <contact localId="28" negated="false" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="27" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B3</variable>
+                    </contact>
+                    <contact localId="29" negated="true" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="0" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B1</variable>
+                    </contact>
+                    <contact localId="30" negated="false" storage="none" edge="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="29" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.B2</variable>
+                    </contact>
+                    <coil localId="31" negated="false" storage="none">
+                      <position x="0" y="0" />
+                      <connectionPointIn>
+                        <connection refLocalId="28" />
+                        <connection refLocalId="30" />
+                      </connectionPointIn>
+                      <connectionPointOut />
+                      <variable>.Error</variable>
+                    </coil>
+                    <rightPowerRail localId="2147483646">
+                      <position x="0" y="0" />
+                      <connectionPointIn />
+                    </rightPowerRail>
+                  </LD>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>bdc446d4-99fb-410a-b878-fb4e1bb4dc21</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+              <Libraries>
+                <Library Name="#IoStandard" Namespace="IoStandard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="true" DefaultResolution="IoStandard, 3.5.22.0 (System)" />
+                <Library Name="#3SLicense" Namespace="_3S_LICENSE" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="3SLicense, 0.0.0.0 (CODESYS)" ResolverGuid="97c3b452-d9fa-4ac2-9d0c-3d420aa6d95b" />
+                <Library Name="#CAA Device Diagnosis" Namespace="DED" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="CAA Device Diagnosis, 3.5.22.0 (CAA Technical Workgroup)" />
+                <Library Name="#Standard" Namespace="Standard" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="Standard, * (System)" />
+                <Library Name="#BreakpointLogging" Namespace="BPLog" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="Breakpoint Logging Functions, * (3S - Smart Software Solutions GmbH)" />
+                <Library Name="#System_VisuElems" Namespace="VisuElems" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElems, 4.10.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemMeter" Namespace="VisuElemMeter" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemMeter, 4.10.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemsSpecialControls" Namespace="VisuElemsSpecialControls" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemsSpecialControls, 4.7.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemsWinControls" Namespace="VisuElemsWinControls" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemsWinControls, 4.10.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemTextEditor" Namespace="VisuElemTextEditor" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemTextEditor, 4.8.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemTrace" Namespace="VisuElemTrace" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemTrace, 4.10.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuNativeControl" Namespace="VisuNativeControl" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuNativeControl, 4.9.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemsAlarm" Namespace="VisuElemsAlarm" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemsAlarm, 4.10.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemCamDisplayer" Namespace="VisuElemCamDisplayer" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemCamDisplayer, 4.7.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElem3DPath" Namespace="VisuElem3DPath" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElem3DPath, 4.7.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemsDateTime" Namespace="VisuElemsDateTime" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemsDateTime, 4.9.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuElemXYChart" Namespace="VisuElemXYChart" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemXYChart, 4.10.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#System_VisuInputs" Namespace="VisuInputs" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuInputs, 4.7.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+                <Library Name="#CmpBitmapPool" Namespace="CmpBitmapPool" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="CmpBitmapPool, * (System)" />
+                <PlaceholderRedirections>
+                  <PlaceholderRedirection Placeholder="Standard" Redirection="Standard, 3.5.22.0 (System)" />
+                  <PlaceholderRedirection Placeholder="Standard64" Redirection="Standard64, 3.5.20.0 (System)" />
+                  <PlaceholderRedirection Placeholder="StringUtils" Redirection="StringUtils, 3.5.22.0 (System)" />
+                  <PlaceholderRedirection Placeholder="Util" Redirection="Util, 3.5.22.0 (System)" />
+                  <PlaceholderRedirection Placeholder="Collections" Redirection="Collections, 3.5.17.0 (System)" />
+                </PlaceholderRedirections>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>6cfb12eb-fa9d-443a-8420-95cdca35c96f</ObjectId>
+                  </data>
+                </addData>
+              </Libraries>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/buildproperties" handleUnknown="implementation">
+              <BuildProperties>
+                <CompilerDefines>GENERATE_OVERLAY_VISU,VISU_USEPROPERTYINFO</CompilerDefines>
+              </BuildProperties>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>f5dd5824-a472-4454-b4cb-9edc161210f4</ObjectId>
+            </data>
+          </addData>
+        </resource>
+        <addData>
+          <data name="Device" handleUnknown="discard">
+            <Device xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">
+              <DeviceType>
+                <DeviceIdentification>
+                  <Type>4097</Type>
+                  <Id>0000 000a</Id>
+                  <Version>3.5.22.30</Version>
+                </DeviceIdentification>
+                <Connector moduleType="256" interface="Common.PCI" connectorId="0">
+                  <HostParameterSet />
+                </Connector>
+                <Connector moduleType="769" interface="SafetyInterface" connectorId="1">
+                  <HostParameterSet />
+                </Connector>
+                <DeviceParameterSet />
+                <DriverInfo />
+              </DeviceType>
+            </Device>
+          </data>
+          <data name="configurations" handleUnknown="discard">
+            <configurations />
+          </data>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>13178a23-658a-45b6-b3cb-ff890bfd3c08</ObjectId>
+          </data>
+        </addData>
+      </configuration>
+    </configurations>
+  </instances>
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+      <Libraries>
+        <Library Name="#System_VisuElems" Namespace="VisuElems" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElems, 4.10.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <Library Name="#System_VisuElemMeter" Namespace="VisuElemMeter" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemMeter, 4.10.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <Library Name="#System_VisuElemsSpecialControls" Namespace="VisuElemsSpecialControls" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemsSpecialControls, 4.7.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <Library Name="#System_VisuElemsWinControls" Namespace="VisuElemsWinControls" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemsWinControls, 4.10.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <Library Name="#System_VisuElemTextEditor" Namespace="VisuElemTextEditor" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemTextEditor, 4.8.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <Library Name="#System_VisuElemTrace" Namespace="VisuElemTrace" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemTrace, 4.10.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <Library Name="#System_VisuNativeControl" Namespace="VisuNativeControl" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuNativeControl, 4.9.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <Library Name="#System_VisuElemsAlarm" Namespace="VisuElemsAlarm" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemsAlarm, 4.10.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <Library Name="#System_VisuElemCamDisplayer" Namespace="VisuElemCamDisplayer" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemCamDisplayer, 4.7.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <Library Name="#System_VisuElem3DPath" Namespace="VisuElem3DPath" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElem3DPath, 4.7.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <Library Name="#System_VisuElemsDateTime" Namespace="VisuElemsDateTime" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemsDateTime, 4.9.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <Library Name="#System_VisuElemXYChart" Namespace="VisuElemXYChart" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuElemXYChart, 4.10.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <Library Name="#System_VisuInputs" Namespace="VisuInputs" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="VisuInputs, 4.7.0.0 (System)" ResolverGuid="2717eb6a-dd07-4c66-8d8d-cacebd7b18ae" />
+        <PlaceholderRedirections>
+          <PlaceholderRedirection Placeholder="CmpTraceMgr" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysCpuHandling" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpDynamicText" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="Standard64" Redirection="Standard64, 3.5.20.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpVisuHandler" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpIecTask" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysTimeCore" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysShm" Redirection="SysShm, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysTarget" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpWebServer Implementation" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpSchedule" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpBinTagUtilIec" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpCrypto Implementation" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysFile" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysSem" Redirection="SysSem, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpCodeMeter" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysProcess" Redirection="SysProcess, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="Component Manager" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysTask" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysShm Implementation" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysSem Implementation" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpUserMgr Implementation" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysTime" Redirection="SysTime, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysProcess Implementation" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CAA Storage Imp" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CAA Storage" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="StringUtils" Redirection="StringUtils, 3.5.22.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpSrv" Redirection="CmpSrv, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CAA MemBlockMan" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="Util" Redirection="Util, 3.5.22.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpLog" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpApp" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="Collections" Redirection="Collections, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpBitmapPool" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpEventMgr" Redirection="CmpEventMgr, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysTimeRtc" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="Rts Service Handler" Redirection="Rts Service Handler, 3.5.17.0 (3S - Smart Software Solutions GmbH)" />
+          <PlaceholderRedirection Placeholder="CAA FB Factory" Redirection="CAA FB Factory, 3.5.19.0 (CAA Technical Workgroup)" />
+          <PlaceholderRedirection Placeholder="Standard" Redirection="Standard, 3.5.22.0 (System)" />
+          <PlaceholderRedirection Placeholder="CmpEventMgr Implementation" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="CAA Types" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+          <PlaceholderRedirection Placeholder="SysMem" Redirection="NotImplementedByDevice, 3.5.17.0 (System)" />
+        </PlaceholderRedirections>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>444d9fc6-2819-4f45-bb54-b728173a5f25</ObjectId>
+          </data>
+        </addData>
+      </Libraries>
+    </data>
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+        <Object Name="Device" ObjectId="13178a23-658a-45b6-b3cb-ff890bfd3c08">
+          <Object Name="Application" ObjectId="f5dd5824-a472-4454-b4cb-9edc161210f4">
+            <Object Name="Library Manager" ObjectId="6cfb12eb-fa9d-443a-8420-95cdca35c96f" />
+            <Object Name="PLC_PRG" ObjectId="bdc446d4-99fb-410a-b878-fb4e1bb4dc21" />
+            <Object Name="MainTask" ObjectId="f0caeff9-4db8-480e-b9fd-390eea1b5a71" />
+            <Object Name="VISU_TASK" ObjectId="6cb3cb3c-f91a-418b-ac78-18b4c61590c6" />
+            <Object Name="GVL" ObjectId="ed2354c0-6ba0-4924-8e24-b26b19e1f541" />
+          </Object>
+        </Object>
+        <Object Name="Library Manager" ObjectId="444d9fc6-2819-4f45-bb54-b728173a5f25" />
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>
