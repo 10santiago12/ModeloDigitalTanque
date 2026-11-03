@@ -103,14 +103,7 @@ sequenceDiagram
 
 El prototipo usa componentes de bajo costo. El software utilizado no tiene costo en el alcance académico: CODESYS (entorno y runtime en modo demostración), Arduino IDE, bibliotecas de código abierto y Ubidots STEM.
 
-| Componente | Cantidad | Costo unitario (COP) | Subtotal (COP) |
-|---|---|---|---|
-| ESP32 DevKit | 1 | _completar_ | _completar_ |
-| Dipswitch de 3 posiciones o más | 1 | _completar_ | _completar_ |
-| LEDs | 5 | _completar_ | _completar_ |
-| Resistencias 220 o 330 Ω | 5 | _completar_ | _completar_ |
-| Protoboard y cables | 1 | _completar_ | _completar_ |
-| **Total del prototipo** | | | _completar_ |
+Los componentes de hardware del prototipo son un ESP32 DevKit, un dipswitch, cinco LEDs con sus resistencias, una protoboard y cables.
 
 Para una solución real (sensores de nivel industriales, PLC físico y red cableada) el costo cambia de orden de magnitud. Esa estimación queda fuera del alcance de este prototipo.
 

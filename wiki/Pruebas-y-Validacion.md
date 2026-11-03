@@ -18,7 +18,6 @@ Pruebas de la plataforma IoT:
 |---|---|
 | Publicación del estado en Ubidots al cambiar el dip | Los valores se actualizan en el dashboard |
 | Cambio del estado desde un switch remoto de Ubidots | CODESYS y el montaje físico responden al cambio |
-| Latencia | Respuesta casi inmediata hacia CODESYS y el montaje; el dashboard de Ubidots tarda algunos segundos en reflejar los cambios |
 
 ---
 

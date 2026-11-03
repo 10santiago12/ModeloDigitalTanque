@@ -14,12 +14,6 @@ Gemelo digital de un sistema de monitoreo del nivel de un tanque. Un montaje fí
 
 La documentación completa está en la wiki: https://github.com/10santiago12/ModeloDigitalTanque/wiki
 
-## Cómo reproducirlo
-
-1. Cargar `conexion_modbus.ino` en un ESP32 con las bibliotecas `modbus-esp8266` y `PubSubClient`, configurando el WiFi y el token de Ubidots en las constantes del inicio del archivo.
-2. Abrir `Tanque_CodeSys/Ejercicio_Tanque.project` en CODESYS, fuera del modo Simulation, y configurar la IP del ESP32 en el dispositivo Modbus TCP Server.
-3. Crear en Ubidots el dispositivo `tanque` con las variables de estado y las variables de comando `b1_remoto`, `b2_remoto` y `b3_remoto`.
-
 ## Créditos
 
 - Autor: Santiago Urrego Rodríguez
