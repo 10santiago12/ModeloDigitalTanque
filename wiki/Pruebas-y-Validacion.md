@@ -20,8 +20,6 @@ Pruebas de la plataforma IoT:
 | Cambio del estado desde un switch remoto de Ubidots | CODESYS y el montaje físico responden al cambio |
 | Latencia | Respuesta casi inmediata hacia CODESYS y el montaje; el dashboard de Ubidots tarda algunos segundos en reflejar los cambios |
 
-> **Pendiente del autor:** medir la latencia con cronómetro o con las marcas de tiempo de Ubidots y registrarla aquí.
-
 ---
 
 Anterior: [Integración con Ubidots](Integracion-con-Ubidots) | Siguiente: [Problemas y Soluciones](Problemas-y-Soluciones)

@@ -9,11 +9,13 @@ El dipswitch es activo en bajo: cada pin usa `INPUT_PULLUP` y el interruptor en 
 | Dip B1, B2, B3 | Un terminal a GPIO 4, 16, 17; el otro a GND |
 | LED Vacío, Bajo, Correcto, Alto, Error | Ánodo a GPIO 18, 19, 21, 22, 23 mediante resistencia (220 o 330 Ω); cátodo a GND |
 
-> **Pendiente del autor:** insertar aquí la foto del montaje y el esquemático (por ejemplo, exportado de Fritzing). Imagen sugerida: `![Montaje físico](images/montaje.jpg)`.
+Montaje físico: ESP32 sobre protoboard, dipswitch de entradas (B1, B2, B3) y cinco LEDs de estado (de izquierda a derecha en la foto: azul, amarillo-verde, verde, amarillo y rojo).
+
+![Montaje físico](images/montaje.jpeg)
 
 ## Firmware del ESP32
 
-El firmware (`conexion_modbus/conexion_modbus.ino`) usa las bibliotecas `modbus-esp8266` (servidor Modbus TCP) y `PubSubClient` (MQTT). Su funcionamiento en cada ciclo de `loop()`:
+El firmware (`conexion_modbus.ino`, en la raíz del repositorio) usa las bibliotecas `modbus-esp8266` (servidor Modbus TCP) y `PubSubClient` (MQTT). Su funcionamiento en cada ciclo de `loop()`:
 
 ```mermaid
 flowchart TD

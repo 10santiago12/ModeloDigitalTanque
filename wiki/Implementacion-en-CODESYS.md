@@ -11,7 +11,9 @@
 
 ![Configuración del Modbus TCP Client](images/mdbclient.png)
 
-> **Pendiente del autor:** insertar captura de la HMI de CODESYS en ejecución (`![HMI](images/hmi.png)`).
+Visualización (HMI): panel de estados del tanque (Alto, Correcto, Bajo, Vacío y Error) a la izquierda y los pulsadores B1, B2 y B3 a la derecha.
+
+![HMI de CODESYS](images/hmi.png)
 
 ---
 
